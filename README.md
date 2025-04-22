@@ -1,7 +1,7 @@
-Email Campaign Optimization: Maximizing Click-Through Rate (CTR) using XGBoost and SHAP
+# **Email Campaign Optimization: Maximizing Click-Through Rate (CTR) using XGBoost and SHAP**
 This project demonstrates a full pipeline to maximize email link click-through rates (CTR) through machine learning, using user and email metadata. It applies binary classification techniques to predict email opens (EO) and link clicks (LO), and strategically combines their probabilities to optimize campaign outcomes.
 
-Objectives
+# **Objectives**
 Predict whether a user will open an email (EO).
 
 Predict whether a user will click on a link inside the email (LO), conditional on EO.
@@ -12,7 +12,7 @@ Rank users to target the most promising ones.
 
 Compare Random vs Optimized strategies using A/B testing.
 
-Data Sources
+# **Data Sources**
 Three CSV datasets:
 
 email_opened_table.csv: Contains email_id values where the email was opened.
@@ -21,7 +21,7 @@ email_table.csv: Main dataset with email metadata.
 
 link_clicked_table.csv: Contains email_id values where links inside the email were clicked.
 
-Data Preprocessing
+  # **Data Preprocessing**
 Feature Engineering:
 
 Created two new binary columns:
@@ -30,15 +30,15 @@ EO: 1 if email was opened, 0 otherwise.
 
 LO: 1 if link was clicked, 0 otherwise.
 
-Label Encoding:
+  # **Label Encoding**
 
 Applied to categorical features: email_text, email_version, user_country, weekday.
 
-Correlation Heatmap:
+  # **Correlation Heatmap**
 
 Visual analysis to explore feature relationships.
 
-Stage 1: Email Open Prediction (EO)
+**Stage 1: Email Open Prediction (EO)**
 Feature-Target Split:
 
 Features: all except email_id, EO, LO, and email_version.
@@ -61,7 +61,7 @@ Explainability:
 
 Used SHAP (SHapley Additive exPlanations) to interpret feature importance.
 
-Stage 2: Link Click Prediction (LO | EO=1)
+**Stage 2: Link Click Prediction (LO | EO=1)**
 Filtered Subset: Only used rows where EO == 1.
 
 Train-Test Split & Model Training:
@@ -81,7 +81,7 @@ Final Probability = EO_Prob * LO_Prob
 
 Used this combined score to rank users by likelihood of clicking.
 
-Performance Evaluation
+# **Performance Evaluation**
 Top-K Strategy
 Selected top 20% of users based on final conversion score.
 
@@ -89,12 +89,12 @@ Compared Click-Through Rates (CTR):
 
 Baseline CTR (all users)
 
-Top-K CTR (predicted high-probability users)
+**Top-K CTR (predicted high-probability users)**
 
-Lift Curve
+**Lift Curve**
 Evaluated model lift over random chance by plotting cumulative clicks vs proportion of users contacted.
 
-A/B Test Simulation
+**A/B Test Simulation**
 Simulated a campaign:
 
 Group A: Randomly selected users.
@@ -103,7 +103,7 @@ Group B: Top K users from model predictions.
 
 Compared CTR between groups via bar plot.
 
-Key Libraries Used
+# **Key Libraries Used**
 pandas, numpy for data manipulation
 
 matplotlib, seaborn for visualization
@@ -116,7 +116,7 @@ imblearn for SMOTETomek resampling
 
 shap for model explainability
 
-Results Summary
+# **Results Summary**
 Model-based ranking significantly improved CTR in Group B compared to random selection.
 
 SHAP plots provided transparency into what drives opens and clicks.
